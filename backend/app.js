@@ -3,14 +3,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 
-const sauceRoutes = require('./routes/sauce');
+const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 
-mongoose.connect('mongodb+srv://user1:h9wHDSc78SjzDDV@cluster0.egcst.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://userAddandOther:YQM9KH7cOF7uOvcf@cluster0.zohcq.mongodb.net/<dbname>?retryWrites=true&w=majority',
     { useNewUrlParser: true,
     useUnifiedTopology: true})
     .then(() => console.log('Connexion a MongoDB reussie!'))
-    .catch(() => console.log('Erreur de connexion'));
+    .catch(() => console.log('Erreur de connexion')); 
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 module.exports = app;
