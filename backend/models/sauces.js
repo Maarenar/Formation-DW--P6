@@ -1,5 +1,8 @@
-const mongoose = require ('mongoose');
+const mongoose = require ('mongoose');// importation de mongoose
 
+/**
+ * Création d'un schema de données pour l'objet Sauce
+ */
 const sauceSchema = mongoose.Schema({
     userId : { type : String, required : true},
     name : { type : String, required : true},
@@ -14,4 +17,4 @@ const sauceSchema = mongoose.Schema({
     usersDisliked : { type : Array, required : false},
 });
 
-module.exports = mongoose.model('sauce', sauceSchema);
+module.exports = mongoose.model('sauce', sauceSchema); // on exporte le schéma de données
