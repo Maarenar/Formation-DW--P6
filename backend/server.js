@@ -1,4 +1,4 @@
-const http = require('http'); //importation du package http de node
+const http = require('http'); //importation du package http de node --> lors de la mise en prod, utiliser https
 const app = require('./app'); //importation de l'app
 
 /**
@@ -45,7 +45,7 @@ const errorHandler = error => {
  * Création du serveur avec un listener
  */
 
-const server = http.createServer(app); 
+const server = http.createServer(app); //--> lors de la mise en prod, utiliser https
 
 server.on('error', errorHandler);
 server.on('listening', () => {

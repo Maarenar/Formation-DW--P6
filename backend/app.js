@@ -1,4 +1,5 @@
 const express = require('express'); //importation d'Express
+const helmet = require('helmet');
 /**
  * importation de packages
  */
@@ -10,6 +11,7 @@ const path = require('path');
  * Creation de l'application Express
  */
 const app = express();
+
 
 /**
  * Définition des routes
@@ -40,10 +42,12 @@ app.use((req, res, next) => {
 /**
  * Définition des middlewares
  */
+app.use(helmet()); 
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
+
 
 
 module.exports = app;// on exporte l'application
