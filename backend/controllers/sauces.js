@@ -68,18 +68,17 @@ exports.getAllSauce = (req, res, next) => {
  * Fonction pour enregistrer les likes et dislikes
  */
 exports.likeSauce = (req, res, next) => {
-
     switch (req.body.like) {
       case 0:
         Sauce.findOne({ _id: req.params.id })
           .then((sauce) => {
-            if (sauce.usersLiked.find(user => user === req.body.userId)) {
+            if (sauce.usersLiked.find(user => user === req.body.userId)) {//l'utilisateur aime la sauce
               Sauce.updateOne({ _id: req.params.id }, {
                 $inc: { likes: -1 },
                 $pull: { usersLiked: req.body.userId },
                 _id: req.params.id
               })
-                .then(() => { res.status(201).json({ message: 'Ton avis a été pris en compte!' }); })
+                .then(() => { res.status(201).json({ message: 'Like enregistré' }); })
                 .catch((error) => { res.status(400).json({ error: error }); });
   
             } if (sauce.usersDisliked.find(user => user === req.body.userId)) {
@@ -88,7 +87,7 @@ exports.likeSauce = (req, res, next) => {
                 $pull: { usersDisliked: req.body.userId },
                 _id: req.params.id
               })
-                .then(() => { res.status(201).json({ message: 'ok...' }); })
+                .then(() => { res.status(201).json({ message: 'Dislike enregistré' }); })
                 .catch((error) => { res.status(400).json({ error: error }); });
             }
           })
@@ -100,7 +99,7 @@ exports.likeSauce = (req, res, next) => {
           $push: { usersLiked: req.body.userId },
           _id: req.params.id
         })
-          .then(() => { res.status(201).json({ message: 'Like added!' }); })
+          .then(() => { res.status(201).json({ message: 'Like enregistré' }); })
           .catch((error) => { res.status(400).json({ error: error }); });
         break;
       case -1:
@@ -109,7 +108,7 @@ exports.likeSauce = (req, res, next) => {
           $push: { usersDisliked: req.body.userId },
           _id: req.params.id
         })
-          .then(() => { res.status(201).json({ message: 'Ok... it\'\s your right...' }) })
+          .then(() => { res.status(201).json({ message: 'Dislike enregistré' }) })
           .catch((error) => { res.status(400).json({ error: error }) });
         break;
       default:
