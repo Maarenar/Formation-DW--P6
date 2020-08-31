@@ -1,20 +1,20 @@
 const bcrypt = require('bcrypt');//importation de bcrypt
 const jwt = require('jsonwebtoken');// importation de jsonwebtoken
 const User = require('../models/user');// importation du schéma de donnees user
+const { body } = require('express-validator');
 
 exports.signup = (req,res,next) => {
-    bcrypt.hash(req.body.password, 10)// on crypte le mot de passe
-    .then(hash => {
-        const user = new User ({ // on crée une nouvelle instance de la classe User
-            email : req.body.email,
-            password : hash
-        });
-        user.save()// on enregistre les données de l'utilisatuer dans la base de données
-            .then(() => res.status(201).json({ message : 'L\'utilisateur a été créé !' }))
-            .catch(error => res.status(400).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
-
+        bcrypt.hash(req.body.password, 10)// on crypte le mot de passe
+        .then(hash => {
+            const user = new User ({ // on crée une nouvelle instance de la classe User
+                email : req.body.email,
+                password : hash
+            });
+            user.save()// on enregistre les données de l'utilisatuer dans la base de données
+                .then(() => res.status(201).json({ message : 'L\'utilisateur a été créé !' }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 exports.login = (req,res,next) => {
