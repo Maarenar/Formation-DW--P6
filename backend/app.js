@@ -6,6 +6,7 @@ const express = require('express'); //importation d'Express
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const validation = require('express-validator');
 
 /**
  * Creation de l'application Express
